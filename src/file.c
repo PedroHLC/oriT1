@@ -104,8 +104,8 @@ int find_entry(char *key, FILE *file, Record *blockBuffer) {
 	return (readBytes == 0 ? -1 : -2);
 }
 
-void search (char *key, Record *output, char *fname) {
-	FILE *file = fopen(fname, "r+b");
+void search (char *fname, char *key) {
+	FILE *file = fopen(fname, "rb");
 	if(file == NULL)
 		return;
 	
@@ -113,5 +113,11 @@ void search (char *key, Record *output, char *fname) {
 	int recordIndex = find_entry(key, file, block);
 	printf("ftell: %d, find_entry:%d\n", ftell(file), recordIndex);
 	
-	// TODO
+	if (recordIndex < 0)
+		puts("Registro nao encontrado");
+	else {
+		puts("KEY\tDUMMY\tFOO\tBAR");
+		Record *worker = &block[recordIndex];
+		printf("%s\t%s\t%s\t%s\n", worker->key, worker->dummy, worker->foo, worker->bar);
+	}
 }
