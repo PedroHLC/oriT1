@@ -6,10 +6,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	if (remove (argv[1], argv[2]))
-    puts("Registro removido");
-  else
-    puts("O registro não pode ser removido");
+	remove_ (argv[1], argv[2]);
 
 	return 0;
 }

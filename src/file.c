@@ -130,24 +130,23 @@ void search (char *fname, char *key) {
 	}
 }
 
-bool remove (char *fname, char *key) {
+void remove_ (char *fname, char *key) {
 	FILE *file = fopen(fname, "r+b");
 	if (file == NULL) {
 		puts(FILE_NOT_FOUND);
-		return false;
+		return;
 	}
 
 	Record block[RECORDS_PERBLOCK];
 	int recordIndex = find_entry(key, file, block);
 
 	if (recordIndex < 0)
-		return false;
+		return;
 	else {
 		puts("Removendo registro:");
-		puts("Key\tDUMMY\tFOO\tBAR");
 		Record *worker = &block[recordIndex];
 		printf("%s\t%s\t%s\t%s\n", worker->key, worker->dummy, worker->foo, worker->bar);
-		worket->removed = true;
+		worker->removed = true;
 		fwrite(block, sizeof(Record), RECORDS_PERBLOCK, file);
 	}
 }
