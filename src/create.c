@@ -15,5 +15,5 @@ int main(int argc, char **argv) {
 		puts("Não foi possível criar o arquivo.");
 		return 2;
 	}
-	
+
 }

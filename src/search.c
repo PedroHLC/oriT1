@@ -7,6 +7,6 @@ int main(int argc, char **argv) {
 	}
 
 	search (argv[1], argv[2]);
-	
+
 	return 0;
 }
