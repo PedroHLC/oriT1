@@ -1,6 +1,6 @@
 PROJECT=oriT1
 LS_LIBS=file utils records
-LS_EXES=create insert list search vacuum
+LS_EXES=create insert list search remove vacuum
 INSTALL_PATH?=/usr/local
 
 
