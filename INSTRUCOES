@@ -1,0 +1,44 @@
+Instruções de uso:
+
+Compilação:
+para compilar o projeto no linux execute os seguintes passos:
+$ mkdir build build/lib build/bin
+$ make all
+
+serão gerados os seguintes executáveis:
+build/bin/oriT1.create
+build/bin/oriT1.insert
+build/bin/oriT1.list
+build/bin/oriT1.remove
+build/bin/oriT1.search
+build/bin/oriT1.vacuum
+
+Para gerar um novo arquivo basta executar:
+$ build/bin/oriT1.create [nome do arquiv]
+por exemplo:
+$ build/bin/oriT1.create database
+
+Você pode ver os dados do arquivo a qualquer momento através de:
+$ build/bin/oriT1.list [nome do arquivo]
+por exemplo:
+$ build/bin/oriT1.list database
+
+Inserções são feitas através do seguinte programa:
+$ build/bin/oriT1.insert [nome do arquivo] [chave] [dummy] [foo] [bar]
+por exemplo:
+$ build/bin/oriT1.insert database Dados João "São Carlos" SP
+
+Você também pode encontrar dados armazenados através do search:
+$ build/bin/oriT1.search [nome do arquivo] [chave]
+exemplo:
+$ build/bin/oriT1.search database Dados
+
+Os dados inseridos podem ser deletados a qualquer momento:
+$ build/bin/oriT1.remove [nome do arquivo] [chave]
+exemplo:
+$ build/bin/oriT1.remove database Dados
+
+Por fim, para eliminar os dados removidos é possível realizar uma compactação dos dados:
+$ build/bin/oriT1.vacuum [nome do arquivo]
+exemplo:
+$ build/bin/oriT1.vacuum database
