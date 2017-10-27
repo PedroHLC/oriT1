@@ -6,7 +6,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	// Criar diretório quando não existe
+	// Cria diretório quando não existe também
 	bool result = create_empty(argv[1]);
 	if(result) {
 		puts("Arquivo criado com sucesso!");

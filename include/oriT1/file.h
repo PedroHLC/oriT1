@@ -10,5 +10,7 @@ int find_empty(FILE *, Record *);
 void insert (Record , char *);
 void list (char *);
 void search (char *, char *);
+void remove_ (char *, char *);
+void vacuum (char *);
 
 #endif

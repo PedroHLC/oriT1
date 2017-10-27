@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <unistd.h>
 
 char FILE_NOT_FOUND[] = "ARQUIVO NAO EXISTE";
 
@@ -127,4 +128,46 @@ void search (char *fname, char *key) {
 		Record *worker = &block[recordIndex];
 		printf("%s\t%s\t%s\t%s\n", worker->key, worker->dummy, worker->foo, worker->bar);
 	}
+}
+
+void vacuum (char *fname) {
+	Record output[RECORDS_PERBLOCK],
+		input[RECORDS_PERBLOCK],
+		*inputEnd = &input[RECORDS_PERBLOCK],
+		*outputEnd = &output[RECORDS_PERBLOCK],
+		*workIn, *workOut = output;
+
+	emptyBlock(output);
+	size_t writtenBlocks = 0;
+
+	// Estou usando apenas uma stream, então nunca interrompa esse processo!
+	FILE *file = fopen(fname, "r+b");
+	if(file == NULL) {
+		puts(FILE_NOT_FOUND);
+		return;
+	}
+
+	size_t traveler, readBytes;
+	while (RECORDS_PERBLOCK == (readBytes = fread(input, sizeof(Record), RECORDS_PERBLOCK, file))) {
+		for (workIn = input; workIn < inputEnd; workIn++) {
+			if(workIn->removed != true) {
+				memcpy(workOut, workIn, sizeof(Record));
+				workOut++;
+				if(workOut >= outputEnd) {
+					traveler = ftell(file);
+					fseek(file, BLOCK_SIZE*writtenBlocks, SEEK_SET);
+					fwrite(output, sizeof(Record), RECORDS_PERBLOCK, file);
+					writtenBlocks++;
+					workOut = output;
+					emptyBlock(workOut);
+					fseek(file, traveler, SEEK_SET);
+				}
+			}
+		}
+	}
+
+	fseek(file, BLOCK_SIZE*writtenBlocks, SEEK_SET);
+	if(workOut != output)
+		fwrite(output, sizeof(Record), RECORDS_PERBLOCK, file);
+	ftruncate(fileno(file), ftello(file));
 }
