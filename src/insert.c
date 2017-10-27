@@ -15,8 +15,8 @@ int main(int argc, char **argv) {
 	strcpy(record.dummy, argv[3]);
 	strcpy(record.foo, argv[4]);
 	strcpy(record.bar, argv[5]);
-	
+
 	insert(record, argv[1]);
-	
+
 	return 0;
 }

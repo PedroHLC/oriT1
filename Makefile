@@ -35,4 +35,4 @@ install:
 
 clean:
 	$(foreach f, $(LS_LIBS), rm build/lib/lib${PROJECT}_${f}.a;)
-	$(foreach f, $(LS_EXES), rm build/bin/${f}.cgi;)
+	$(foreach f, $(LS_EXES), rm build/bin/${PROJECT}.{f};)
