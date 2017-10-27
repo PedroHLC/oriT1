@@ -5,8 +5,11 @@
 #include <stdbool.h>
 #include <string.h>
 
+char FILE_NOT_FOUND[] = "ARQUIVO NAO EXISTE";
+
 // Cria um arquivo vazio
 bool create_empty(char *fname) {
+	mkdir_file(fname);
 	// Saudades monads... S2 FP
 	FILE *file = fopen(fname, "w");
 	if(file != NULL) {
@@ -38,8 +41,10 @@ int find_empty(FILE *file, Record *blockBuffer) {
 
 void insert (Record newRecord, char *fname) {
 	FILE *file = fopen(fname, "r+b");
-	if(file == NULL)
+	if(file == NULL) {
+		puts(FILE_NOT_FOUND);
 		return;
+	}
 	
 	Record block[RECORDS_PERBLOCK];
 	int recordIndex = find_empty(file, block);
@@ -61,7 +66,7 @@ void list (char *fname) {
 
 	FILE *file = fopen(fname, "rb");
 	if(file == NULL) {
-		puts("ARQUIVO NAO EXISTE");
+		puts(FILE_NOT_FOUND);
 		return;
 	}
 
@@ -106,8 +111,10 @@ int find_entry(char *key, FILE *file, Record *blockBuffer) {
 
 void search (char *fname, char *key) {
 	FILE *file = fopen(fname, "rb");
-	if(file == NULL)
+	if(file == NULL) {
+		puts(FILE_NOT_FOUND);
 		return;
+	}
 	
 	Record block[RECORDS_PERBLOCK];
 	int recordIndex = find_entry(key, file, block);

@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <unistd.h>
 
 void mkdir_p(char *dir) {
 	char tmp[PATH_MAX];
@@ -32,13 +31,4 @@ void mkdir_file(char *file) {
 		*(lp+1) = 0;
 		mkdir_p(path);
 	}
-}
-
-void chdir_pwd() {
-	char fname[PATH_MAX];
-	readlink("/proc/self/exe", fname, PATH_MAX-1);
-	char *lp = strrchr(fname, '/');
-	if(lp != NULL) 
-		*(lp+1) = 0;
-	chdir(fname);
 }
