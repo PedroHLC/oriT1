@@ -1,3 +1,6 @@
+/*
+ *	Libraries
+ ***********************************************************************/
 #include <oriT1/utils.h>
 #include <limits.h>
 #include <stdio.h>
@@ -5,6 +8,10 @@
 #include <string.h>
 #include <sys/stat.h>
 
+/*
+ *	Functions
+ ***********************************************************************/
+/* Cria o diretório informado */
 void mkdir_p(char *dir) {
 	char tmp[PATH_MAX];
 	char *p = NULL;
@@ -23,6 +30,7 @@ void mkdir_p(char *dir) {
 	mkdir(tmp, S_IRWXU);
 }
 
+/* Obtém o PATH informado no arquivo */
 void mkdir_file(char *file) {
 	char path[PATH_MAX];
 	strcpy(path, file);
