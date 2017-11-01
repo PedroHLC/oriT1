@@ -167,7 +167,32 @@ void search(char *fname, char *key) {
 	}
 }
 
-/* Função que remove os registros removidos */
+/* Função que remove os registros */
+void remove_ (char *fname, char *key) {
+	/* Abre o arquivo */
+	FILE *file = fopen(fname, "r+b");
+	if (file == NULL) {
+		puts(FILE_NOT_FOUND);
+		return;
+	}
+
+	/* Busca pelo registro a ser removido */
+	Record block[RECORDS_PERBLOCK];
+	int recordIndex = find_entry(key, file, block);
+
+	/* Se encontrar, marca o registro como removido */
+	if (recordIndex < 0)
+		return;
+	else {
+		puts("Removendo registro:");
+		Record *worker = &block[recordIndex];
+		printf("%s\t%s\t%s\t%s\n", worker->key, worker->dummy, worker->foo, worker->bar);
+		worker->removed = true;
+		fwrite(block, sizeof(Record), RECORDS_PERBLOCK, file);
+	}
+}
+
+/* Função que compacta o arquivo */
 void vacuum(char *fname) {
 	Record output[RECORDS_PERBLOCK],
 		input[RECORDS_PERBLOCK],

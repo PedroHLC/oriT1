@@ -1,7 +1,7 @@
 /*
  *	Libraries
  ***********************************************************************/
-#include <oriT1/file.h> /* remove_()*/
+#include <oriT1/file.h> /* remove_() */
 
 /*
  *	Main
