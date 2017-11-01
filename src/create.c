@@ -1,12 +1,19 @@
-#include <oriT1/file.h>
+/*
+ *	Libraries
+ ***********************************************************************/
+#include <oriT1/file.h> /* create_empty() */
 
+/*
+ *	Main
+ ***********************************************************************/
 int main(int argc, char **argv) {
+	/* Instruções de uso */
 	if(argc != 2) {
 		puts("oriT1.create [nomedoarquivo]");
 		return 1;
 	}
 
-	// Cria diretório quando não existe também
+	/* Cria o arquivo  no sistema */
 	bool result = create_empty(argv[1]);
 	if(result) {
 		puts("Arquivo criado com sucesso!");
